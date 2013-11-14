@@ -21,6 +21,7 @@ object RockhopperLadderApplicationBuild extends Build {
       version := Version,
       scalaVersion := ScalaVersion,
       resolvers += "Typesafe Maven" at "http://repo.typesafe.com/typesafe/releases",
+      resolvers += "Sonatype Maven" at "https://oss.sonatype.org/content/repositories/releases",
       libraryDependencies ++= Seq(
         "org.scalatra" %% "scalatra" % ScalatraVersion,
         "org.scalatra" %% "scalatra-scalate" % ScalatraVersion,
@@ -29,6 +30,10 @@ object RockhopperLadderApplicationBuild extends Build {
         "org.eclipse.jetty" % "jetty-webapp" % "8.1.8.v20121106" % "container",
         "play" %% "anorm" % "2.1.5",
         "postgresql" % "postgresql" % "9.1-901.jdbc4",
+        "com.lambdaworks" % "scrypt" % "1.4.0",
+        "com.sandinh" % "play-jdbc-standalone_2.10" % "2.0.1_2.2",
+        "org.scalatra" %% "scalatra-json" % "2.2.1",
+        "org.json4s"   %% "json4s-jackson" % "3.2.4",
         "org.eclipse.jetty.orbit" % "javax.servlet" % "3.0.0.v201112011016" % "container;provided;test" artifacts (Artifact("javax.servlet", "jar", "jar"))
       ),
       scalateTemplateConfig in Compile <<= (sourceDirectory in Compile){ base =>

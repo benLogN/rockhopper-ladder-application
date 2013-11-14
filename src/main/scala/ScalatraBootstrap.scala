@@ -1,12 +1,13 @@
 import _root_.akka.actor.{ActorSystem, Props}
 import es.chickade.rockhopper._
+import es.chickade.rockhopper.persistence._
 import org.scalatra._
 import javax.servlet.ServletContext
 
 class ScalatraBootstrap extends LifeCycle {
 
   val system = ActorSystem()
-//  val myActor = system.actorOf(Props[MyActor])
+  val storageActor = system.actorOf(Props[StorageActor])
 
   override def init(context: ServletContext) {
     context.mount(new RockhopperServlet(system), "/*")

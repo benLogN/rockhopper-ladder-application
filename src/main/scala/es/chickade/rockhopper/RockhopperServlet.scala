@@ -6,9 +6,13 @@ import scala.concurrent.{Await, Future, ExecutionContext}
 import _root_.akka.actor.ActorSystem
 import org.scalatra.FutureSupport
 import scala.xml.Node
+import org.json4s.{DefaultFormats, Formats}
+// Handling support for JSON
+import org.scalatra.json._
 
-class RockhopperServlet(system: ActorSystem) extends RockhopperLadderApplicationStack with FutureSupport{
+class RockhopperServlet(system: ActorSystem) extends RockhopperLadderApplicationStack with FutureSupport with JacksonJsonSupport{
 
+  protected implicit val jsonFormats: Formats = DefaultFormats.withBigDecimal
   protected implicit def executor: ExecutionContext = system.dispatcher
 
   get("/") {
@@ -26,5 +30,13 @@ class RockhopperServlet(system: ActorSystem) extends RockhopperLadderApplication
       }
     }
   }
-  
+
+  post("/user/:username") {
+    new AsyncResult { val is =
+      Future{
+        <p>{parsedBody \\ "pass"}</p>
+      }
+    }
+  }
+
 }
